@@ -1,6 +1,7 @@
 import { showHUD, AI, Clipboard, getFrontmostApplication, confirmAlert, showToast, Toast, getPreferenceValues } from "@raycast/api";
-import { getSelectedFinderWindow, getSelectedTerminalWindow } from "./utils"
 import { spawnSync } from "node:child_process";
+import { getSelectedFinderWindow, getSelectedTerminalWindow } from "./utils"
+import { generatePrompt } from "./prompt";
 
 export default async function Command() {
   const toast = await showToast({
@@ -43,21 +44,23 @@ export default async function Command() {
   console.log(`Diff is: ${diff}`)
 
   // Use Raycast AI to generate a commit message
-  const { locale, length } = await getPreferenceValues();
+  const { locale, length, commitType, model } = await getPreferenceValues();
 
-  let answer = await AI.ask(`
-    Generate a concise git commit message written in present tense for the following code diff with the given specifications below:
-    Message language: ${locale}
-    Commit message must be a maximum of ${length} characters.
-    Exclude anything unnecessary such as translation. Your entire response will be passed directly into git commit.
+  const prompt = `
+  ${generatePrompt(locale, length, commitType)}
 
-    \`\`\`
-    ${diff}
-    \`\`\`
-  `);
+  \`\`\`
+  ${diff}
+  \`\`\`
+  `
 
-  // Remove leading and trailing spaces from the answer
-  answer = answer.trim()
+  console.debug(`Prompt is: ${prompt}`)
+
+  const answer = (await AI.ask(prompt, {
+    creativity: 0.7,
+    model
+  })).trim();
+
   console.log(`Generated commit message: ${answer}`)
 
   // Show the message in Raycast interface

@@ -18,6 +18,24 @@
       "mode": "no-view",
       "preferences": [
         {
+          "name": "commitType",
+          "title": "Commit Type",
+          "description": "The type of commit to generate",
+          "type": "dropdown",
+          "required": true,
+          "default": "none",
+          "data": [
+            {
+              "title": "None",
+              "value": "none"
+            },
+            {
+              "title": "Conventional",
+              "value": "conventional"
+            }
+          ]
+        },
+        {
           "name": "locale",
           "title": "Locale",
           "description": "The locale to use for the commit message",
@@ -32,6 +50,24 @@
           "type": "textfield",
           "required": true,
           "default": "100"
+        },
+        {
+          "name": "model",
+          "title": "Model",
+          "description": "The model to use for the commit message",
+          "type": "dropdown",
+          "required": true,
+          "default": "gpt-3.5-turbo",
+          "data": [
+            {
+              "title": "text-davinci-003",
+              "value": "text-davinci-003"
+            },
+            {
+              "title": "gpt-3.5-turbo",
+              "value": "gpt-3.5-turbo"
+            }
+          ]
         }
       ]
     }
