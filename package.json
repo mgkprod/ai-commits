@@ -1,0 +1,57 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "ai-commits",
+  "title": "AI Commits",
+  "description": "A Raycast extension that writes your git commit messages for you with AI",
+  "icon": "command-icon.png",
+  "author": "mgk",
+  "categories": [
+    "Developer Tools"
+  ],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "index",
+      "title": "Generate commit message",
+      "description": "Generate a commit message with AI",
+      "icon": "command-icon.png",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "locale",
+          "title": "Locale",
+          "description": "The locale to use for the commit message",
+          "type": "textfield",
+          "required": true,
+          "default": "en"
+        },
+        {
+          "name": "length",
+          "title": "Length",
+          "description": "The maximum length of the commit message",
+          "type": "textfield",
+          "required": true,
+          "default": "100"
+        }
+      ]
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.51.0"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "1.0.5",
+    "@types/node": "18.8.3",
+    "@types/react": "18.0.9",
+    "eslint": "^7.32.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.3"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "publish": "npx @raycast/api@latest publish"
+  }
+}
